@@ -9,6 +9,7 @@ class Crc < Formula
 
   depends_on "go" => :build
   depends_on "vfkit"
+  depends_on "crc-admin-helper"
 
   def install
     arch = Hardware::CPU.intel? ? "amd64" : Hardware::CPU.arch.to_s
