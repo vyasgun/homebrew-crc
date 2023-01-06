@@ -1,0 +1,46 @@
+From 63716d9dad165319d1ade83c7b9150dfd2015365 Mon Sep 17 00:00:00 2001
+From: Christophe Fergeau <cfergeau@redhat.com>
+Date: Fri, 6 Jan 2023 17:08:41 +0100
+Subject: [PATCH] build: Add entitlement to amd64/arm64 binaries
+
+It's not possible to build a universal cgo binary in brew, the build
+fails when trying to compile a go program for the non-native arch.
+We'll only build a binary for the current arch on brew. These binaries
+need to have the virtualization entitlement, so instead of adding the
+entitlement to the final universal binary, we add it instead to each
+arch-specific binary.
+---
+ Makefile | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 2e5f126..4e33f62 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,20 +1,18 @@
+-.PHONY: all build clean codesign
++.PHONY: all build clean
+ 
+ CGO_CFLAGS=-mmacosx-version-min=11.0
+ 
+-all: build codesign
++all: build
+ 
+ build: out/vfkit
+ 
+ clean:
+ 	rm -rf out
+ 
+-codesign: out/vfkit
+-	codesign --entitlements vf.entitlements -s - $<
+-
+ out/vfkit-amd64 out/vfkit-arm64: out/vfkit-%: force-build
+ 	@mkdir -p $(@D)
+ 	CGO_ENABLED=1 CGO_CFLAGS=$(CGO_CFLAGS) GOOS=darwin GOARCH=$* go build -o $@ ./cmd/vfkit
++	codesign --entitlements vf.entitlements -s - $@
+ 
+ out/vfkit: out/vfkit-amd64 out/vfkit-arm64
+ 	cd $(@D) && lipo -create $(^F) -output $(@F)
+-- 
+2.39.0
+

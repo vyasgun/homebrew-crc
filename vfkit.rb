@@ -9,12 +9,18 @@ class Vfkit < Formula
 
   depends_on "go" => :build
 
+  patch do
+    url "https://raw.githubusercontent.com/cfergeau/homebrew-crc/main/vfkit-Add-entitlement-to-amd64-arm64-binaries.patch"
+    sha256 "934bbb901bb77cce1d76caa63d9ba8f5836993e9376529b2217ba15e62863de7"
+  end
+
   def install
     ENV["CGO_ENABLED"] = "1"
     ENV["CGO_CFLAGS"] = "-mmacosx-version-min=11.0"
     ENV["GOOS"]="darwin"
-    system "go", "build", "-o", "out/vfkit", "./cmd/vfkit"
-    bin.install "out/vfkit"
+    arch = Hardware::CPU.intel? ? "amd64" : Hardware::CPU.arch.to_s
+    system "make", "out/vfkit-#{arch}"
+    bin.install "out/vfkit-#{arch}" => "vfkit"
   end
 
   test do
