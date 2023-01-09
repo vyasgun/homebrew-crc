@@ -14,6 +14,15 @@ class CrcAdminHelper < Formula
     bin.install "crc-admin-helper"
   end
 
+  def caveats
+    <<~EOS
+      This crc helper requires superuser privileges to modify the /etc/hosts file. To
+      enable, execute:
+        sudo chown root:wheel #{opt_bin}/crc-admin-helper
+        sudo chmod u+s #{opt_bin}/crc-admin-helper
+    EOS
+  end
+
   test do
     # test version
     version_output = shell_output("#{bin}/crc-admin-helper --version 2>&1").strip
