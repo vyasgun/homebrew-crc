@@ -11,6 +11,12 @@ class Crc < Formula
   depends_on "vfkit"
   depends_on "crc-admin-helper"
 
+  patch do
+    url "https://raw.githubusercontent.com/cfergeau/homebrew-crc/main/crc-homebrew.patch"
+    sha256 "30b5f7abb93abd560f3fa0f629fd8c983b73eb65636effa497c025465d0f703f"
+
+  end
+
   def install
     arch = Hardware::CPU.intel? ? "amd64" : Hardware::CPU.arch.to_s
     vfkit_path = Formula["vfkit"].bin
