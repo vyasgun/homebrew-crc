@@ -13,7 +13,22 @@ class Crc < Formula
 
   def install
     arch = Hardware::CPU.intel? ? "amd64" : Hardware::CPU.arch.to_s
-    system "make", "macos-release-binary"
+    vfkit_path = Formula["vfkit"].bin
+    admin_helper_path = Formula["crc-admin-helper"].bin
+    build_params=buildpath/"build-params.json"
+    build_params.write <<~EOS
+      [
+        {
+          "name": "vfkit",
+          "path": "#{vfkit_path}/vfkit"
+        },
+        {
+          "name": "crc-admin-helper-darwin",
+          "path": "#{admin_helper_path}/crc-admin-helper"
+        }
+      ]
+    EOS
+    system "make", "macos-release-binary", "CRC_BUILD_PARAMS_PATH=#{build_params}"
     bin.install "out/macos-#{arch}/crc"
   end
 
