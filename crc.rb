@@ -39,22 +39,10 @@ class Crc < Formula
   end
 
   test do
-    # try set preference
-    ENV["GLOBALODOCONFIG"] = "#{testpath}/preference.yaml"
-    system bin/"odo", "preference", "set", "ConsentTelemetry", "false"
-    system bin/"odo", "preference", "add", "registry", "StagingRegistry", "https://registry.stage.devfile.io"
-    assert_predicate testpath/"preference.yaml", :exist?
+    assert_match /^crc version: #{version}/, shell_output("#{bin}/crc version")
 
-    # test version
-    version_output = shell_output("#{bin}/odo version --client 2>&1").strip
-    assert_match(/odo v#{version} \([a-f0-9]{9}\)/, version_output)
-
-    # try to create a new component
-    system bin/"odo", "init", "--devfile", "nodejs", "--name", "test", "--devfile-registry", "StagingRegistry"
-    assert_predicate testpath/"devfile.yaml", :exist?
-
-    dev_output = shell_output("#{bin}/odo dev 2>&1", 1).strip
-    assert_match "no connection to cluster defined", dev_output
+    # Should error out as running crc requires root
+    status_output = shell_output("#{bin}/crc setup 2>&1", 1)
+    assert_match "Unable to set ownership", status_output
   end
 end
-
