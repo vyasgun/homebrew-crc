@@ -2,17 +2,12 @@ class Vfkit < Formula
   desc "Command line hypervisor using Apple's Virtualization Framework"
   homepage "https://github.com/crc-org/vfkit"
   url "https://github.com/crc-org/vfkit.git",
-      tag: "v0.0.4",
-      revision: "41f5a6e906acfa07e5ed49b5da7c67ae84209144"
+      tag: "v0.1.1",
+      revision: "7c89451fbe45c932a7dd7bc03ba89b979007f875"
   license "Apache-2.0"
   head "https://github.com/crc-org/vfkit.git", branch: "main"
 
   depends_on "go" => :build
-
-  patch do
-    url "https://raw.githubusercontent.com/cfergeau/homebrew-crc/main/vfkit-Add-entitlement-to-amd64-arm64-binaries.patch"
-    sha256 "934bbb901bb77cce1d76caa63d9ba8f5836993e9376529b2217ba15e62863de7"
-  end
 
   def install
     ENV["CGO_ENABLED"] = "1"
