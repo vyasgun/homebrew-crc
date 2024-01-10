@@ -6,6 +6,7 @@ class Vfkit < Formula
       revision: "7572104e0d9c622b32fb48813c41dd10da9b9fa7"
   license "Apache-2.0"
   head "https://github.com/crc-org/vfkit.git", branch: "main"
+  revision 2
 
   depends_on "go" => :build
 
