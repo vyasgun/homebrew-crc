@@ -9,6 +9,11 @@ class Vfkit < Formula
 
   depends_on "go" => :build
 
+  patch do
+    url "https://github.com/crc-org/vfkit/commit/732de99a184e83c11e245f4f0d4e03ccedddb4f5.patch"
+    sha256 "9954a9835f2fff0e851e51f3fe8b414cadd5c699d53fd9da577ba88f0620e502"
+  end
+
   def install
     ENV["CGO_ENABLED"] = "1"
     ENV["CGO_CFLAGS"] = "-mmacosx-version-min=11.0"
