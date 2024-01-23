@@ -2,18 +2,12 @@ class Vfkit < Formula
   desc "Command line hypervisor using Apple's Virtualization Framework"
   homepage "https://github.com/crc-org/vfkit"
   url "https://github.com/crc-org/vfkit.git",
-      tag: "v0.5.0",
-      revision: "7572104e0d9c622b32fb48813c41dd10da9b9fa7"
+      tag: "v0.5.1",
+      revision: "441c13483b5d5a82f8053ab011f879559df9e7c1"
   license "Apache-2.0"
   head "https://github.com/crc-org/vfkit.git", branch: "main"
-  revision 2
 
   depends_on "go" => :build
-
-  patch do
-    url "https://github.com/crc-org/vfkit/commit/732de99a184e83c11e245f4f0d4e03ccedddb4f5.patch"
-    sha256 "9954a9835f2fff0e851e51f3fe8b414cadd5c699d53fd9da577ba88f0620e502"
-  end
 
   def install
     ENV["CGO_ENABLED"] = "1"
