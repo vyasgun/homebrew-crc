@@ -2,8 +2,8 @@ class Crc < Formula
   desc "Run a minimal OpenShift cluster on your local machine"
   homepage "https://crc.dev"
   url "https://github.com/crc-org/crc.git",
-      tag:      "v2.12.0",
-      revision: "ea98bb41e24ad81a319d0aa6c6e1286bc1334c1b"
+      tag:      "v2.29.0",
+      revision: "da5f55e509428ba87e24fb5217a0c3d8a315cc7f"
   license "Apache-2.0"
   head "https://github.com/crc-org/crc.git", branch: "main"
 
@@ -12,7 +12,7 @@ class Crc < Formula
   depends_on "crc-admin-helper"
 
   patch do
-    url "https://raw.githubusercontent.com/cfergeau/homebrew-crc/main/crc-homebrew.patch"
+    url "https://raw.githubusercontent.com/vyasgun/homebrew-crc/main/crc-homebrew.patch"
     sha256 "30b5f7abb93abd560f3fa0f629fd8c983b73eb65636effa497c025465d0f703f"
 
   end

@@ -2,8 +2,8 @@ class CrcAdminHelper < Formula
   desc "setuid helper used by crc"
   homepage "https://github.com/crc-org/admin-helper"
   url "https://github.com/crc-org/admin-helper.git",
-      tag: "v0.0.12",
-      revision: "dca192011f94b2888e1cb2e6256a3cb22a27dea5"
+      tag: "v0.5.4",
+      revision: "ec8d66df562a5f3b900e12dbcac0d9c48a1bcae7"
   license "Apache-2.0"
   head "https://github.com/crc-org/admin-helper.git", branch: "master"
 
