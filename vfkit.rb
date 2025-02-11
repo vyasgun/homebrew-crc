@@ -8,6 +8,7 @@ class Vfkit < Formula
   head "https://github.com/crc-org/vfkit.git", branch: "main"
 
   depends_on "go" => :build
+  depends_on :macos
 
   def install
     ENV["CGO_ENABLED"] = "1"
