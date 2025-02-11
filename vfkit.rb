@@ -1,8 +1,8 @@
 class Vfkit < Formula
-  desc "Command line hypervisor using Apple's Virtualization Framework"
+  desc "Command-line hypervisor using Apple's Virtualization Framework"
   homepage "https://github.com/crc-org/vfkit"
   url "https://github.com/crc-org/vfkit.git",
-      tag: "v0.6.0",
+      tag:      "v0.6.0",
       revision: "467a63452ceaf34beb8c3112713dd6fc0198f835"
   license "Apache-2.0"
   head "https://github.com/crc-org/vfkit.git", branch: "main"
@@ -21,11 +21,11 @@ class Vfkit < Formula
   test do
     # test version
     version_output = shell_output("#{bin}/vfkit --version 2>&1").strip
-    assert_match(/vfkit version: #{version}/, version_output)
+    assert_match(/vfkit version: v#{version}/, version_output)
 
     # start a VM with non-existing kernel
-    lines =  shell_output("#{bin}/vfkit --kernel foo --initrd bar --kernel-cmdline baz 2>&1", 1).strip.split(/\r?\n|\r/)
+    lines = shell_output("#{bin}/vfkit --kernel foo --initrd bar " \
+                         "--kernel-cmdline baz 2>&1", 1).strip.split(/\r?\n|\r/)
     assert_match(/open foo: no such file or directory/, lines.last)
   end
 end
-
